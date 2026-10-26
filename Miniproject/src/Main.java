@@ -1,5 +1,5 @@
-package Miniproject.src;
 
+package Miniproject.src;
 
 public class Main {
 
@@ -7,8 +7,10 @@ public class Main {
             throws CloneNotSupportedException {
 
         // Lab 3: Account object methods
-        Account a1 = new Account("Riya", 4000);
-        Account a2 = new Account(a1);
+        SavingsAccount a1 =
+                new SavingsAccount("Riya", 4000, 500);
+
+        SavingsAccount a2 = new SavingsAccount(a1);
 
         System.out.println("=== Account Object Methods ===");
         System.out.println(a1);
@@ -24,7 +26,7 @@ public class Main {
         System.out.println(
                 "Same hashCode -> " + (a1.hashCode() == a2.hashCode()));
 
-        // Lab 3: Customer and nested Address
+        // Lab 3: Customer and Address
         System.out.println("\n=== Customer and Address ===");
 
         Customer c = new Customer(
@@ -46,51 +48,51 @@ public class Main {
         System.out.println("Cloned: " + clonedCustomer);
         System.out.println("Same object -> " + (c == clonedCustomer));
 
-        // Lab 2 Part B: Account transactions
-        System.out.println("\n=== Lab 2 Part B: Account Transactions ===");
+        // Lab 2: Account transactions
+        System.out.println("\n=== Lab 2: Account Transactions ===");
 
-        Account[] accounts = {
-                new Account("Priya", 2000),
-                new Account("Karan", 1500),
-                new Account("Neha")
+        Account[] transactionAccounts = {
+                new SavingsAccount("Priya", 2000, 500),
+                new CurrentAccount("Karan", 1500, 1000),
+                new SavingsAccount("Neha", 0, 0)
         };
 
-        accounts[0].deposit(1000);
-        accounts[1].deposit(500);
-        accounts[2].deposit(3000);
+        transactionAccounts[0].deposit(1000);
+        transactionAccounts[1].deposit(500);
+        transactionAccounts[2].deposit(3000);
 
-        accounts[0].withdraw(500);
-        accounts[1].withdraw(250);
+        transactionAccounts[0].withdraw(500);
+        transactionAccounts[1].withdraw(250);
 
-        for (Account account : accounts) {
+        for (Account account : transactionAccounts) {
             System.out.println(
                     account.getAccountNumber()
                     + " | " + account.getOwnerName()
                     + " | Balance: Rs. " + account.getBalance());
         }
 
-        // Lab 4 Part B: Validator tests
+        // Lab 4: Validator tests
         System.out.println("\n=== Lab 4: Validator Tests ===");
 
-        System.out.println("\nMobile Validation:");
+        System.out.println("\nMobile:");
         System.out.println("9876543210 -> "
                 + Validator.isValidMobile("9876543210"));
         System.out.println("12345 -> "
                 + Validator.isValidMobile("12345"));
 
-        System.out.println("\nEmail Validation:");
+        System.out.println("\nEmail:");
         System.out.println("riya@example.com -> "
                 + Validator.isValidEmail("riya@example.com"));
         System.out.println("riya@com -> "
                 + Validator.isValidEmail("riya@com"));
 
-        System.out.println("\nPAN Validation:");
+        System.out.println("\nPAN:");
         System.out.println("ABCDE1234F -> "
                 + Validator.isValidPan("ABCDE1234F"));
         System.out.println("ABC123 -> "
                 + Validator.isValidPan("ABC123"));
 
-        System.out.println("\nIFSC Validation:");
+        System.out.println("\nIFSC:");
         System.out.println("SBIN0001234 -> "
                 + Validator.isValidIfsc("SBIN0001234"));
         System.out.println("ABC123 -> "
@@ -99,21 +101,57 @@ public class Main {
         // Lab 4: Command parsing
         System.out.println("\n=== Lab 4: Command Parsing ===");
 
-        try {
-            Command command =
-                    CommandParser.parse("DEPOSIT AC0001 500");
+        Command command =
+                CommandParser.parse("DEPOSIT AC0001 500");
 
-            System.out.println("Type: " + command.type());
-            System.out.println("Account Number: "
-                    + command.accountNumber());
-            System.out.println("Amount: " + command.amount());
-
-        } catch (IllegalArgumentException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
+        System.out.println("Type: " + command.type());
+        System.out.println("Account Number: "
+                + command.accountNumber());
+        System.out.println("Amount: " + command.amount());
 
         // Lab 4: Statement formatting
         System.out.println("\n=== Lab 4: Account Statement ===");
         System.out.println(StatementFormatter.buildStatement(a1));
+
+        // Lab 5 Part B: Runtime polymorphism
+        System.out.println("\n=== Lab 5: Account Types ===");
+
+        Account[] typedAccounts = {
+                new SavingsAccount("Aarav", 10000, 2000),
+                new CurrentAccount("Meera", 5000, 3000),
+                new FixedDepositAccount("Kabir", 20000)
+        };
+
+        for (Account account : typedAccounts) {
+            System.out.println(
+                    account.getClass().getSimpleName()
+                    + " | Account: " + account.getAccountNumber()
+                    + " | Interest Rate: " + account.interestRate()
+                    + "%");
+
+            if (account instanceof SavingsAccount savings) {
+                System.out.println(
+                        "Minimum Balance: Rs. "
+                        + savings.getMinBalance());
+            }
+        }
+
+        // Test withdrawal rules
+        System.out.println("\n=== Lab 5: Withdrawal Rules ===");
+
+        System.out.println("Savings withdraw Rs. 8500: "
+                + typedAccounts[0].withdraw(8500));
+
+        System.out.println("Current withdraw Rs. 7000: "
+                + typedAccounts[1].withdraw(7000));
+
+        System.out.println("Fixed Deposit withdraw Rs. 1000: "
+                + typedAccounts[2].withdraw(1000));
+
+        for (Account account : typedAccounts) {
+            System.out.println(
+                    account.getClass().getSimpleName()
+                    + " | Balance: Rs. " + account.getBalance());
+        }
     }
 }

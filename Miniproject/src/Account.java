@@ -1,10 +1,12 @@
 package Miniproject.src;
 
-public class Account {
+public abstract class Account {
+
     private final String accountNumber;
     private String ownerName;
     private long balance;
     private boolean active;
+
     private static int counter = 1;
 
     public Account(String ownerName, long openingBalance) {
@@ -18,7 +20,7 @@ public class Account {
         this(ownerName, 0);
     }
 
-    // Copy constructor for testing equality
+    // Copy constructor for Lab 3
     public Account(Account other) {
         this.accountNumber = other.accountNumber;
         this.ownerName = other.ownerName;
@@ -30,6 +32,10 @@ public class Account {
         return String.format("AC%04d", counter++);
     }
 
+    public abstract double interestRate();
+
+    public abstract boolean canWithdraw(long amount);
+
     public void deposit(long amount) {
         if (amount > 0) {
             balance += amount;
@@ -37,7 +43,7 @@ public class Account {
     }
 
     public boolean withdraw(long amount) {
-        if (amount > 0 && amount <= balance) {
+        if (amount > 0 && canWithdraw(amount)) {
             balance -= amount;
             return true;
         }
