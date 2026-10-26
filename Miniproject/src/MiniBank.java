@@ -1,5 +1,5 @@
+package Miniproject.src;
 import java.util.Scanner;
-
 public class MiniBank {
     public static void main(String[] args) {
         BankInfo info = new BankInfo("MiniBank", "Nadiad");

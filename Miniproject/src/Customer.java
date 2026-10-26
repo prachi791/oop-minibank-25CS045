@@ -1,3 +1,4 @@
+package Miniproject.src;
 
 public class Customer implements Cloneable {
     private String name, email, mobile;
