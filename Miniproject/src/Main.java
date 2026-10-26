@@ -7,8 +7,7 @@ public class Main {
             throws CloneNotSupportedException {
 
         // Lab 3: Account object methods
-        SavingsAccount a1 =
-                new SavingsAccount("Riya", 4000, 500);
+        SavingsAccount a1 = new SavingsAccount("Riya", 4000, 500);
 
         SavingsAccount a2 = new SavingsAccount(a1);
 
@@ -67,8 +66,8 @@ public class Main {
         for (Account account : transactionAccounts) {
             System.out.println(
                     account.getAccountNumber()
-                    + " | " + account.getOwnerName()
-                    + " | Balance: Rs. " + account.getBalance());
+                            + " | " + account.getOwnerName()
+                            + " | Balance: Rs. " + account.getBalance());
         }
 
         // Lab 4: Validator tests
@@ -101,8 +100,7 @@ public class Main {
         // Lab 4: Command parsing
         System.out.println("\n=== Lab 4: Command Parsing ===");
 
-        Command command =
-                CommandParser.parse("DEPOSIT AC0001 500");
+        Command command = CommandParser.parse("DEPOSIT AC0001 500");
 
         System.out.println("Type: " + command.type());
         System.out.println("Account Number: "
@@ -125,14 +123,14 @@ public class Main {
         for (Account account : typedAccounts) {
             System.out.println(
                     account.getClass().getSimpleName()
-                    + " | Account: " + account.getAccountNumber()
-                    + " | Interest Rate: " + account.interestRate()
-                    + "%");
+                            + " | Account: " + account.getAccountNumber()
+                            + " | Interest Rate: " + account.interestRate()
+                            + "%");
 
             if (account instanceof SavingsAccount savings) {
                 System.out.println(
                         "Minimum Balance: Rs. "
-                        + savings.getMinBalance());
+                                + savings.getMinBalance());
             }
         }
 
@@ -151,7 +149,40 @@ public class Main {
         for (Account account : typedAccounts) {
             System.out.println(
                     account.getClass().getSimpleName()
-                    + " | Balance: Rs. " + account.getBalance());
+                            + " | Balance: Rs. " + account.getBalance());
         }
+
+        // ================= LAB 6 - PART B =================
+
+        System.out.println("\n========== LAB 6: MINIBANK ==========");
+        System.out.println("Part B - Interfaces, Lambda Expressions and JAR");
+
+        // Create withdrawal rule using an anonymous class
+        WithdrawRule anonymousRule = new WithdrawRule() {
+            @Override
+            public boolean allow(Account account, long amount) {
+                return account.canWithdraw(amount);
+            }
+        };
+
+        // Create withdrawal rule using a lambda expression
+        WithdrawRule lambdaRule = (account, amount) -> account.canWithdraw(amount);
+
+        // Demonstrate both rules
+        System.out.println("\n--- Withdrawal Rule: Anonymous Class ---");
+        System.out.println("Withdrawal allowed: "
+                + anonymousRule.allow(a1, 1000));
+
+        System.out.println("\n--- Withdrawal Rule: Lambda Expression ---");
+        System.out.println("Withdrawal allowed: "
+                + lambdaRule.allow(a1, 1000));
+
+        // Demonstrate yearly interest
+        System.out.println("\n--- Interest Bearing Interface ---");
+        System.out.println("Account balance: Rs. " + a1.getBalance());
+        System.out.println("Interest rate: " + a1.interestRate() + "%");
+        System.out.println("Yearly interest: Rs. " + a1.yearlyInterest());
+
+        System.out.println("\n========== END OF LAB 6 ==========");
     }
 }
