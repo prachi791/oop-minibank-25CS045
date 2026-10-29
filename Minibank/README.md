@@ -1,35 +1,109 @@
-# MiniBank
+# MiniBank – Java Banking System
 
-MiniBank is a Java 17+ console banking project. The source is arranged in `model`, `util`, `service`, `exception`, and `minibank` packages. It includes account validation and transactions, account types, a reflective generic repository, concurrent batch deposits, file persistence, transaction logs, and an end-of-day report.
+## About the Project
 
-## Build and run
+MiniBank is a console-based banking application developed in Java as part of the Object-Oriented Programming (OOP) practicals. It provides a menu-driven interface for performing basic banking operations and demonstrates the use of Java programming concepts through a practical project.
 
-With Maven installed, from this folder run:
+The project is developed progressively across Practicals 1–14, with each practical adding new features and improving the application.
 
-```text
+## Features
+
+- **Account Management:** Open accounts and manage account details.
+- **Multiple Account Types:** Supports Savings, Current, and Fixed Deposit accounts.
+- **Banking Operations:** Deposit, withdraw, and transfer money.
+- **Account Listing:** View available bank accounts.
+- **Account Statements:** Display account-related information.
+- **Input Validation:** Validate details such as mobile numbers, email addresses, PAN numbers, and IFSC codes.
+- **Transaction Records:** Maintain transaction logs.
+- **Batch Deposits:** Process deposits for multiple accounts.
+- **Reports:** Generate an end-of-day report.
+- **File Storage:** Store account information and transaction records locally.
+
+## Technologies Used
+
+- Java 17+
+- Object-Oriented Programming
+- Java Interfaces and Abstract Classes
+- Inheritance and Polymorphism
+- Collections and Generics
+- Exception Handling
+- Multithreading and Synchronization
+- File Handling
+- JUnit 5
+
+## How to Run
+
+### Prerequisites
+
+- Java Development Kit (JDK) 17 or later
+- Maven (optional, for building and running tests)
+
+Check your Java installation:
+
+```bash
+java -version
+```
+
+### Run Using the Executable JAR
+
+Open a terminal in the project directory and run:
+
+```bash
+java -jar MiniBank.jar
+```
+
+### Build and Run Using Maven
+
+If Maven is installed, run:
+
+```bash
 mvn test
 mvn package
 java -jar target/minibank-1.0.jar
 ```
 
-The JUnit 5 tests cover deposits, a withdrawal beyond the available balance, and concurrent deposits. Maven downloads JUnit the first time it runs the tests.
+Maven builds the project and runs the available automated tests.
 
-To compile and run without Maven:
+## Application Menu
 
-```text
-javac -d out (Get-ChildItem -Recurse src/main/java -Filter *.java | ForEach-Object FullName)
-jar --create --file MiniBank.jar --main-class minibank.MiniBank -C out .
-java -jar MiniBank.jar
-```
+The application provides options for:
 
-The menu supports opening accounts, deposits, withdrawals, transfers, listing accounts, statements, reports, and batch deposits. Account data is stored in `data/accounts.dat`, transaction entries in `data/logs/transactions.log`, and the report in `data/report.txt`. These runtime files are created when the application is used.
+1. Opening an account
+2. Depositing money
+3. Withdrawing money
+4. Transferring money
+5. Exiting the application
 
-## Practical-list alignment
+Additional options include listing accounts, viewing statements, generating reports, and processing batch deposits.
 
-The uploaded project had source and compiled class files through Practical 6, used the package `Miniproject.src`, and did not contain a build file, README, JAR manifest, persistence layer, collections repository, or service layer. The final project reorganizes the source into the package structure requested by Practical 6 and implements the Part B requirements for Practicals 1–14. Existing Java class names are retained; new classes use descriptive names from the practical list.
+## Data Storage
 
-Creating the private GitHub repository named for a roll number and inviting faculty require the student's GitHub account and roll number, so those account actions are not represented in this ZIP. Maven is not installed in the available environment: the application sources and runnable JAR were built with Java 17-compatible tools, but the JUnit suite has not been run here.
+MiniBank stores its data locally:
 
-The practical list has a few requirements that do not fit cleanly together as one final application. Practical 2 describes `Account` as concrete, while Practical 5 explicitly makes it abstract and introduces account subclasses; the final application follows the later abstract design. Practical 8 changes insufficient withdrawals from a `false` result to checked exceptions, so the integrated version follows Practical 8. Practical 1's five-action menu is retained and extended with list, statement, report, and batch actions required by later practicals. The original uploaded project used a `Main` class for examples; the runnable JAR starts at `minibank.MiniBank` so the menu is the application entry point.
+- **Account data:** `data/accounts.dat`
+- **Transaction logs:** `data/logs/transactions.log`
+- **End-of-day report:** `data/report.txt`
 
-Practical 10 asks students to demonstrate a deadlock and then fix it. `TransactionProcessor` contains both an opposite-order transfer demonstration method and an account-number ordered transfer method; the application uses the ordered method for safe transfers.
+These files are created when the corresponding application features are used.
+
+## Concepts Demonstrated
+
+The project demonstrates important Java concepts, including:
+
+- Classes, objects, and constructors
+- Encapsulation, inheritance, and polymorphism
+- Abstract classes and interfaces
+- Lambda expressions and functional interfaces
+- Generics and collections
+- Exception handling
+- File input and output
+- Multithreading and thread safety
+- Executable JAR creation
+
+## Learning Outcomes
+
+Through this project, I gained practical experience in designing a Java application, organizing classes, implementing banking operations, handling exceptions, storing data in files, and applying object-oriented programming concepts to a real-world-inspired problem.
+
+## Conclusion
+
+MiniBank brings together the Java concepts covered throughout the OOP practicals in one banking application. It demonstrates how a program can grow from basic account operations into a more structured application with multiple account types, transaction handling, data storage, and reporting.
